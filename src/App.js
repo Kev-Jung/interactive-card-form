@@ -1,7 +1,7 @@
 import './App.css';
 import MobileBackground from './components/MobileBackground/MobileBackground';
 import CardForm from './components/CardForm/CardForm';
-import FormSubmit from './components/FormSubmitPage/FormSubmit';
+import FormSubmit from './components/FormSubmit/FormSubmit';
 import {useState} from 'react'
 
   // <footer>
@@ -11,8 +11,16 @@ import {useState} from 'react'
 
 function App() {
 
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
   return (
     <div>
+      <MobileBackground />
+      {formSubmitted 
+      ? 
+      <FormSubmit setFormSubmitted={setFormSubmitted} /> 
+      : 
+      <CardForm setFormSubmitted={setFormSubmitted} />}
     </div>
   );
 }

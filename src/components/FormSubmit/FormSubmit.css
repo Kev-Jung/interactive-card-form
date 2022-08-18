@@ -1,0 +1,26 @@
+.completed-form {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+.completed-form-prompt {
+  margin: 40px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.completed-form h2 {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+.completed-form p {
+  color: hsl(279, 6%, 55%);
+  margin-top: 20px;
+  font-size: 16px;
+  /* letter-spacing: 1px; */
+}
