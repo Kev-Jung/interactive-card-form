@@ -1,0 +1,63 @@
+.input-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: auto;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid hsl(270, 3%, 87%);
+  padding: 0 10px;
+  font-size: 14px;
+  letter-spacing: .5px;
+  color: hsl(278, 68%, 11%);
+  margin-bottom: 10px;
+}
+
+.input-form label, .exp-year-label {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: hsl(278, 68%, 11%);
+  font-weight: 500;
+}
+
+.exp-year-input {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.error-msg {
+  position: absolute;
+  font-size: 11px;
+  color: hsl(0, 100%, 66%);
+  margin: 0;
+  bottom: -7px;
+}
+
+.error-border {
+  border: 1px solid red;
+}
+
+.one-fr {
+  grid-column-start: span 1;
+}
+
+.two-fr {
+  grid-column: span 2;
+}
+
+.four-fr {
+  grid-column-start: span 4;
+}
+
+.red {
+  border: 1px solid red
+}

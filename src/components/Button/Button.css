@@ -1,0 +1,13 @@
+button {
+  border: none;
+  background: hsl(278, 68%, 11%);
+  height: 50px;
+  color: #fff;
+  border-radius: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  width: 100%;
+}
