@@ -12,12 +12,6 @@ const CardForm = ({ setFormSubmitted }) => {
     cvc: "",
   });
 
-  console.log("name: ", inputField.name);
-  console.log("cardNumber: ", inputField.cardNumber);
-  console.log("month: ", inputField.month);
-  console.log("year: ", inputField.year);
-  console.log("cvc: ", inputField.cvc);
-
   const [error, setError] = useState({
     name: { error: false, message: "" },
     cardNumber: { error: false, message: "" },
@@ -37,45 +31,75 @@ const CardForm = ({ setFormSubmitted }) => {
     e.target.value = e.target.value.slice(0, limit);
   };
 
-  const checkInputEmpty = (inputField) => {
+  const checkInputLength = (limit, key) => {
+    const inputLength = inputField[key].length;
+    if (inputLength === 0) {
+      setError((prevError) => {
+        return {
+          ...prevError,
+          [key]: { error: true, message: "Can't be blank" },
+        };
+      });
+    } else if (inputLength !== 0 && inputLength !== limit && key !== "name") {
+      setError((prevError) => {
+        return {
+          ...prevError,
+          [key]: { error: true, message: `Req: ${limit} char` },
+        };
+      });
+    } else {
+      setError((prevError) => {
+        return {
+          ...prevError,
+          [key]: { error: false, message: "" },
+        };
+      });
+    }
+  };
+
+  const checkForErrors = () => {
+    const errorArray = [];
+    for (let key in error) {
+      errorArray.push(error[key].error);
+    }
+    console.log("error array: ", errorArray);
+    const isSubmissionClean = errorArray.every(
+      (errorExists) => errorExists === false && true
+    );
+    isSubmissionClean === true && setFormSubmitted((state) => !state);
+  };
+
+  const validateFormData = () => {
     for (let key in inputField) {
-      if (inputField[key].length === 0) {
-        setError((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              error: true,
-              message: "Can't be blank",
-            },
-          };
-        });
-      } else if (inputField[key].length > 0) {
-        setError((prevState) => {
-          return {
-            ...prevState,
-            [key]: { error: false, message: "" },
-          };
-        });
+      switch (key) {
+        case "name":
+          checkInputLength(35, key);
+          break;
+        case "cardNumber":
+          checkInputLength(16, key);
+          break;
+        case "month":
+        case "year":
+          checkInputLength(2, key);
+          break;
+        case "cvc":
+          checkInputLength(3, key);
+          break;
       }
     }
   };
 
-  const checkDigitLength = (limit, characters) => {};
-
-  // Check if card number is === 16 characters(numbers)
-  // Check that MM and YY are only two numbers long
-  // Check that CVC is 3 numbers long
-
-  const validateFormData = (e) => {
-    e.preventDefault();
-    checkInputEmpty(inputField);
-    // checkCharacterLength();
-
-    // setFormSubmitted((state) => !state);
-  };
-
   return (
-    <form id="card-form" onSubmit={validateFormData}>
+    // <form id="card-form" onSubmit={validateFormData}>
+    <form
+      id="card-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        validateFormData();
+        checkForErrors();
+        console.log("done");
+      }}
+    >
       <InputForm
         error={error}
         styles="four-fr"
@@ -114,7 +138,6 @@ const CardForm = ({ setFormSubmitted }) => {
             onChange={onInputChange}
             onInput={(e) => limitCharacters(e, 2)}
             value={inputField.month}
-            // maxLength={2}
           />
           <InputForm
             error={error}
