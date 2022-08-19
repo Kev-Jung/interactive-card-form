@@ -1,7 +1,21 @@
 #card-form {
-  margin: 70px 30px 0;
+  margin: 110px 30px 0;
+  height: 400px;
   display: grid;
-  gap: 20px;
+  gap: 10px;
   grid-template-columns: repeat(4, 1fr);
 }
 
+@media (min-width: 450px) {
+  #card-form {
+    width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  #card-form {
+    margin: auto;
+  }
+}

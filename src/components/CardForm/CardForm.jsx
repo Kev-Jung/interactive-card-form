@@ -37,7 +37,7 @@ const CardForm = ({ setFormSubmitted }) => {
       setError((prevError) => {
         return {
           ...prevError,
-          [key]: { error: true, message: "Can't be blank" },
+          [key]: { error: true, message: "* Required" },
         };
       });
     } else if (inputLength !== 0 && inputLength !== limit && key !== "name") {
@@ -66,6 +66,7 @@ const CardForm = ({ setFormSubmitted }) => {
     const isSubmissionClean = errorArray.every(
       (errorExists) => errorExists === false && true
     );
+    console.log(isSubmissionClean);
     isSubmissionClean === true && setFormSubmitted((state) => !state);
   };
 
@@ -96,7 +97,8 @@ const CardForm = ({ setFormSubmitted }) => {
       onSubmit={(e) => {
         e.preventDefault();
         validateFormData();
-        checkForErrors();
+        // checkForErrors skipping the error state from validateFormData. Will show the prompt page without any validation
+        // checkForErrors();
         console.log("done");
       }}
     >
@@ -124,7 +126,7 @@ const CardForm = ({ setFormSubmitted }) => {
         value={inputField.cardNumber}
       />
 
-      <div className=" input-form two-fr">
+      <div className="input-form two-fr">
         <label className="exp-year-label" htmlFor="month">
           Exp. Date (MM/YY)
         </label>

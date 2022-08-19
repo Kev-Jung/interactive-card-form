@@ -2,7 +2,7 @@
   height: auto;
   width: 300px;
   position: absolute;
-  left: 16px;
+  left: 0;
   bottom: -36px;
   z-index: 2;
 }
@@ -23,12 +23,12 @@
 
 .card-logo {
   width: 50px;
-  margin-bottom: 36px;
+  margin-bottom: 26px;
 }
 
 .card-number {
   font-size: 18px;
-  letter-spacing: 2.9px;
+  letter-spacing: 2.8px;
   margin: 0;
 }
 
@@ -46,4 +46,45 @@
   font-weight: 300;
   letter-spacing: 2px;
   margin: 14px 0;
+}
+
+@media (min-width: 768px) {
+  .front-card--container {
+    top: 93px;
+    bottom: auto;
+    left: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .front-card--container {
+    top: 0;
+    left: 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .front-card--container {
+    width: 70%;
+    left: 30px;
+  }
+
+  .front-card--info {
+    padding: 30px;
+  }
+
+  .card-logo {
+    width: 50px;
+    margin-bottom: 50px;
+  }
+
+  .card-number {
+    font-size: 20px;
+    letter-spacing: 3.5px;
+  }
+
+  .user-info p {
+    font-size: 11px;
+    margin: 18px 0;
+  }
 }

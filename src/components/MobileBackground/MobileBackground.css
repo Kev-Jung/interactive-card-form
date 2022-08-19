@@ -1,9 +1,75 @@
 .mobile-container {
-  width: 100%;
-  height: auto;
   position: relative;
+  max-height: 100vh;
 }
 
-.mobile-container--background {
-  width: inherit;
+.mobile-container--background-img {
+  width: 100%;
+  max-height: 250px;
+}
+
+.card-container {
+  /* border: 1px solid red; */
+  margin-top: 20px;
+  width: 350px;
+  height: 250px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 425px) {
+  .card-container {
+    width: 380px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-container--background-img {
+    content: url("../../images/bg-main-desktop.png");
+    height: 100%;
+    max-height: 100%;
+    max-width: 330px;
+  }
+
+  .card-container {
+    left: 0;
+    transform: translateY(-50%);
+    top: 50%;
+    height: 310px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-container--background-img {
+    max-width: 400px;
+    height: 100%;
+  }
+
+  .card-container {
+    left: 30%;
+    height: 400px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .mobile-container {
+    width: 460px;
+  }
+
+  .mobile-container--background-img {
+    max-width: 100%;
+  }
+
+  .card-container {
+    left: 65%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card-container {
+    left: 40%;
+    width: 500px;
+    height: 450px;
+  }
 }

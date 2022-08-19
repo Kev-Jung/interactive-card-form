@@ -3,7 +3,7 @@
   width: 300px;
   position: absolute;
   bottom: 57px;
-  right: 16px;
+  right: 0;
 }
 
 .back-card--img {
@@ -17,4 +17,36 @@
   right: 35px;
   font-size: 9px;
   letter-spacing: 2px;
+}
+
+@media (min-width: 768px) {
+  .back-card--container {
+    top: 0;
+    left: 16px;
+    bottom: auto;
+    right: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .back-card--container {
+    left: auto;
+    top: auto;
+    right: 0;
+    bottom: 30px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .back-card--container {
+    width: 70%;
+    right: 30px;
+  }
+
+  .cvc {
+    font-size: 16px;
+    top: 68px;
+    right: 40px;
+    letter-spacing: 3px;
+  }
 }

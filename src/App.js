@@ -14,7 +14,7 @@ function App() {
   const [formSubmitted, setFormSubmitted] = useState(false)
 
   return (
-    <div>
+    <div className='app-container'>
       <MobileBackground />
       {formSubmitted 
       ? 
