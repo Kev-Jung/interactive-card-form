@@ -13,14 +13,22 @@ function App() {
 
   const [formSubmitted, setFormSubmitted] = useState(false)
 
+  const [inputField, setInputField] = useState({
+    name: "",
+    cardNumber: "",
+    month: "",
+    year: "",
+    cvc: "",
+  });
+
   return (
     <div className='app-container'>
-      <MobileBackground />
+      <MobileBackground inputField={inputField} />
       {formSubmitted 
       ? 
       <FormSubmit setFormSubmitted={setFormSubmitted} /> 
       : 
-      <CardForm setFormSubmitted={setFormSubmitted} />}
+      <CardForm setFormSubmitted={setFormSubmitted} inputField={inputField} setInputField={setInputField} />}
     </div>
   );
 }

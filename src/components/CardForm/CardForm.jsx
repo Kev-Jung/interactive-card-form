@@ -3,14 +3,14 @@ import Button from "../Button/Button";
 import InputForm from "../InputForm/InputForm";
 import { useState } from "react";
 
-const CardForm = ({ setFormSubmitted }) => {
-  const [inputField, setInputField] = useState({
-    name: "",
-    cardNumber: "",
-    month: "",
-    year: "",
-    cvc: "",
-  });
+const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
+  // const [inputField, setInputField] = useState({
+  //   name: "",
+  //   cardNumber: "",
+  //   month: "",
+  //   year: "",
+  //   cvc: "",
+  // });
 
   const [error, setError] = useState({
     name: { error: false, message: "" },
@@ -98,7 +98,7 @@ const CardForm = ({ setFormSubmitted }) => {
         e.preventDefault();
         validateFormData();
         // checkForErrors skipping the error state from validateFormData. Will show the prompt page without any validation
-        // checkForErrors();
+        checkForErrors();
         console.log("done");
       }}
     >
