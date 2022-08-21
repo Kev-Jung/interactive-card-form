@@ -1,17 +1,9 @@
 import "./CardForm.css";
 import Button from "../Button/Button";
 import InputForm from "../InputForm/InputForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
-  // const [inputField, setInputField] = useState({
-  //   name: "",
-  //   cardNumber: "",
-  //   month: "",
-  //   year: "",
-  //   cvc: "",
-  // });
-
   const [error, setError] = useState({
     name: { error: false, message: "" },
     cardNumber: { error: false, message: "" },
@@ -33,6 +25,7 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
 
   const checkInputLength = (limit, key) => {
     const inputLength = inputField[key].length;
+    // Checks if any field is blank
     if (inputLength === 0) {
       setError((prevError) => {
         return {
@@ -40,6 +33,9 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
           [key]: { error: true, message: "* Required" },
         };
       });
+      // Checks if any fields are not blank &&
+      // if field does not meet the required length &&
+      // if the field is not "name" (because name does not need to meet the length requimrent)
     } else if (inputLength !== 0 && inputLength !== limit && key !== "name") {
       setError((prevError) => {
         return {
@@ -47,6 +43,7 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
           [key]: { error: true, message: `Req: ${limit} char` },
         };
       });
+      // If no errors, return default no error state
     } else {
       setError((prevError) => {
         return {
@@ -66,15 +63,15 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
     const isSubmissionClean = errorArray.every(
       (errorExists) => errorExists === false && true
     );
-    console.log(isSubmissionClean);
-    isSubmissionClean === true && setFormSubmitted((state) => !state);
+    isSubmissionClean && setFormSubmitted((state) => !state);
   };
 
-  const validateFormData = () => {
+  const validateFormData = (e) => {
+    e.preventDefault();
     for (let key in inputField) {
       switch (key) {
         case "name":
-          checkInputLength(35, key);
+          checkInputLength(25, key);
           break;
         case "cardNumber":
           checkInputLength(16, key);
@@ -88,20 +85,16 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
           break;
       }
     }
+    // Having an issue where if checkForErros added to this function, the switch statement does not update the error state.
+    // If you uncomment the checkForErrors below, then validation works as intended. Assuming this has to do with making previous
+    // code asynchronous, but had no luck. Also tried to run onSubmit with a callback function and run validateForm and checkForErros
+    // and make validateForms asynch await but nothing.
+
+    // checkForErrors();
   };
 
   return (
-    // <form id="card-form" onSubmit={validateFormData}>
-    <form
-      id="card-form"
-      onSubmit={(e) => {
-        e.preventDefault();
-        validateFormData();
-        // checkForErrors skipping the error state from validateFormData. Will show the prompt page without any validation
-        checkForErrors();
-        console.log("done");
-      }}
-    >
+    <form id="card-form" onSubmit={validateFormData}>
       <InputForm
         error={error}
         styles="four-fr"
@@ -120,7 +113,7 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
         label="Card Number"
         name="cardNumber"
         type="number"
-        placeholder="e.g. 1234 5678 9123 000"
+        placeholder="e.g. 1234 5678 9123 0000"
         onChange={onInputChange}
         onInput={(e) => limitCharacters(e, 16)}
         value={inputField.cardNumber}

@@ -8,7 +8,7 @@ const MobileBackground = ({ inputField }) => {
     <div className="mobile-container">
       <div className="card-container">
         <FrontCard inputField={inputField} />
-        <BackCard />
+        <BackCard inputField={inputField} />
       </div>
       <img
         className="mobile-container--background-img"

@@ -14,8 +14,13 @@ const FrontCard = ({ inputField }) => {
             : "0000 0000 0000 0000"}
         </p>
         <div className="user-info">
-          <p>Jane Appleseed</p>
-          <p>00/00</p>
+          <p>
+            {inputField.name.length > 0 ? inputField.name : "Jane Appleseed"}
+          </p>
+          <p>
+            {inputField.month.length > 0 ? inputField.month : "00"}/
+            {inputField.year.length > 0 ? inputField.year : "00"}
+          </p>
         </div>
       </div>
     </div>

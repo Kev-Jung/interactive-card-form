@@ -26,6 +26,11 @@
     bottom: auto;
     right: auto;
   }
+
+  .cvc {
+    font-size: 11px;
+    top: 63px;
+  }
 }
 
 @media (min-width: 1024px) {
