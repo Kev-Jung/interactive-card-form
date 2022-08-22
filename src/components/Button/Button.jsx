@@ -1,10 +1,20 @@
 import "./Button.css";
 
-const Button = ({ text, setFormSubmitted }) => {
+const Button = ({
+  text,
+  setFormSubmitted,
+  setInputField,
+  initialFormValues,
+}) => {
+  const resetForm = () => {
+    setFormSubmitted((state) => !state);
+    setInputField(initialFormValues);
+  };
+
   return (
     <button
       onClick={() => {
-        setFormSubmitted && setFormSubmitted((state) => !state);
+        setFormSubmitted && resetForm();
       }}
     >
       {text}

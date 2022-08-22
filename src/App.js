@@ -9,24 +9,26 @@ import {useState} from 'react'
   //   Coded by <a href="https://github.com/Kev-Jung">Kevin Jung</a>.
   // </footer>
 
-function App() {
-
-  const [formSubmitted, setFormSubmitted] = useState(false)
-
-  const [inputField, setInputField] = useState({
+  const initialFormValues = {
     name: "",
     cardNumber: "",
     month: "",
     year: "",
     cvc: "",
-  });
+  }
+
+function App() {
+
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
+  const [inputField, setInputField] = useState(initialFormValues);
 
   return (
     <div className='app-container'>
       <MobileBackground inputField={inputField} />
       {formSubmitted 
       ? 
-      <FormSubmit setFormSubmitted={setFormSubmitted} /> 
+      <FormSubmit setFormSubmitted={setFormSubmitted} setInputField={setInputField} initialFormValues={initialFormValues}/> 
       : 
       <CardForm setFormSubmitted={setFormSubmitted} inputField={inputField} setInputField={setInputField} />}
     </div>

@@ -12,6 +12,23 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
     cvc: { error: false, message: "" },
   });
 
+  const [renderCount, setRenderCount] = useState(0);
+
+  useEffect(() => {
+    if (renderCount >= 1) {
+      const errorArray = [];
+      for (let key in error) {
+        errorArray.push(error[key].error);
+      }
+      const isSubmissionClean = errorArray.every(
+        (errorExists) => errorExists === false
+      );
+      isSubmissionClean && setFormSubmitted((state) => !state);
+    } else {
+      setRenderCount((prevCount) => prevCount + 1);
+    }
+  }, [error]);
+
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setInputField((prevState) => {
@@ -54,18 +71,6 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
     }
   };
 
-  const checkForErrors = () => {
-    const errorArray = [];
-    for (let key in error) {
-      errorArray.push(error[key].error);
-    }
-    console.log("error array: ", errorArray);
-    const isSubmissionClean = errorArray.every(
-      (errorExists) => errorExists === false && true
-    );
-    isSubmissionClean && setFormSubmitted((state) => !state);
-  };
-
   const validateFormData = (e) => {
     e.preventDefault();
     for (let key in inputField) {
@@ -85,12 +90,6 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
           break;
       }
     }
-    // Having an issue where if checkForErros added to this function, the switch statement does not update the error state.
-    // If you uncomment the checkForErrors below, then validation works as intended. Assuming this has to do with making previous
-    // code asynchronous, but had no luck. Also tried to run onSubmit with a callback function and run validateForm and checkForErros
-    // and make validateForms asynch await but nothing.
-
-    // checkForErrors();
   };
 
   return (
