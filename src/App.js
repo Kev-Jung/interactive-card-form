@@ -2,12 +2,8 @@ import './App.css';
 import MobileBackground from './components/MobileBackground/MobileBackground';
 import CardForm from './components/CardForm/CardForm';
 import FormSubmit from './components/FormSubmit/FormSubmit';
+import Footer from './components/Footer/Footer';
 import {useState} from 'react'
-
-  // <footer>
-  //   Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-  //   Coded by <a href="https://github.com/Kev-Jung">Kevin Jung</a>.
-  // </footer>
 
   const initialFormValues = {
     name: "",
@@ -31,6 +27,7 @@ function App() {
       <FormSubmit setFormSubmitted={setFormSubmitted} setInputField={setInputField} initialFormValues={initialFormValues}/> 
       : 
       <CardForm setFormSubmitted={setFormSubmitted} inputField={inputField} setInputField={setInputField} />}
+      <Footer />
     </div>
   );
 }

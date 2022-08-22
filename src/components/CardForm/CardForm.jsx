@@ -4,6 +4,7 @@ import InputForm from "../InputForm/InputForm";
 import { useEffect, useState } from "react";
 
 const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
+  // ----------- State Variables -----------
   const [error, setError] = useState({
     name: { error: false, message: "" },
     cardNumber: { error: false, message: "" },
@@ -13,7 +14,9 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
   });
 
   const [renderCount, setRenderCount] = useState(0);
+  // ----------------------------------------
 
+  // ----------- Use Effect (checks if form values are ready for submission w/ no errors) -----------
   useEffect(() => {
     if (renderCount >= 1) {
       const errorArray = [];
@@ -28,7 +31,9 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
       setRenderCount((prevCount) => prevCount + 1);
     }
   }, [error]);
+  // --------------------------------------------------------------------------------------------------
 
+  // ----------- Input Field handler functions -----------
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setInputField((prevState) => {
@@ -39,35 +44,46 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
   const limitCharacters = (e, limit) => {
     e.target.value = e.target.value.slice(0, limit);
   };
+  // ------------------------------------------------------
+
+  const createErrorMessage = (key, error, message) => {
+    setError((prevError) => {
+      return {
+        ...prevError,
+        [key]: { error, message },
+      };
+    });
+  };
 
   const checkInputLength = (limit, key) => {
-    const inputLength = inputField[key].length;
     // Checks if any field is blank
+    const inputLength = inputField[key].length;
     if (inputLength === 0) {
-      setError((prevError) => {
-        return {
-          ...prevError,
-          [key]: { error: true, message: "* Required" },
-        };
-      });
-      // Checks if any fields are not blank &&
-      // if field does not meet the required length &&
-      // if the field is not "name" (because name does not need to meet the length requimrent)
-    } else if (inputLength !== 0 && inputLength !== limit && key !== "name") {
-      setError((prevError) => {
-        return {
-          ...prevError,
-          [key]: { error: true, message: `Req: ${limit} char` },
-        };
-      });
+      createErrorMessage(key, true, "* Required.");
+      // 1. Checks if any fields are not blank
+      // 2. if field does not meet the required length
+      // 3. if the field is not "name" (because name does not need to meet the length requimrent)
+    } else if (inputLength !== 0 && key !== "name" && inputLength !== limit) {
+      console.log(key);
+      createErrorMessage(key, true, `Req: ${limit} char.`);
       // If no errors, return default no error state
     } else {
-      setError((prevError) => {
-        return {
-          ...prevError,
-          [key]: { error: false, message: "" },
-        };
-      });
+      createErrorMessage(key, false, "");
+    }
+  };
+
+  const checkFieldType = (dataType, key) => {
+    const stringOnlyRegEx = /^[a-zA-Z\s]*$/;
+    const numbersOnlyRegEx = /^[0-9]*$/;
+    const inputValue = inputField[key];
+    if (dataType === "string") {
+      stringOnlyRegEx.test(inputValue)
+        ? checkInputLength(25, key)
+        : createErrorMessage(key, true, "Wrong format, characters only");
+    } else {
+      numbersOnlyRegEx.test(inputValue)
+        ? checkInputLength(16, key)
+        : createErrorMessage(key, true, "Wrong format, numbers only");
     }
   };
 
@@ -76,10 +92,10 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
     for (let key in inputField) {
       switch (key) {
         case "name":
-          checkInputLength(25, key);
+          checkFieldType("string", key);
           break;
         case "cardNumber":
-          checkInputLength(16, key);
+          checkFieldType("number", key);
           break;
         case "month":
         case "year":
@@ -87,6 +103,8 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
           break;
         case "cvc":
           checkInputLength(3, key);
+          break;
+        default:
           break;
       }
     }
@@ -111,7 +129,7 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
         styles="four-fr"
         label="Card Number"
         name="cardNumber"
-        type="number"
+        type="text"
         placeholder="e.g. 1234 5678 9123 0000"
         onChange={onInputChange}
         onInput={(e) => limitCharacters(e, 16)}

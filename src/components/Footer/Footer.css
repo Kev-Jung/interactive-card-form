@@ -1,0 +1,10 @@
+footer {
+  font-size: 11px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 281px;
+  margin-bottom: 10px;
+}
