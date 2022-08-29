@@ -1,10 +1,11 @@
 footer {
-  font-size: 11px;
+  font-size: 13px;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
-  width: 281px;
+  width: 286px;
   margin-bottom: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
 }

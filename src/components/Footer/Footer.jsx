@@ -4,10 +4,14 @@ const Footer = () => {
   return (
     <footer>
       Challenge by{" "}
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
+      <a target="_blank" href="https://www.frontendmentor.io?ref=challenge">
         Frontend Mentor
       </a>
-      . Coded by <a href="https://github.com/Kev-Jung">Kevin Jung</a>.
+      . Coded by{" "}
+      <a target="_blank" href="https://github.com/Kev-Jung">
+        Kevin Jung
+      </a>
+      .
     </footer>
   );
 };
