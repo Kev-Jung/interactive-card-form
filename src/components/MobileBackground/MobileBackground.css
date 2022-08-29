@@ -18,9 +18,9 @@
   transform: translateX(-50%);
 }
 
-@media (min-width: 425px) {
+@media (max-width: 360px) {
   .card-container {
-    width: 380px;
+    max-width: 320px;
   }
 }
 
