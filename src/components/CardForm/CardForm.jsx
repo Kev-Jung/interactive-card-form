@@ -74,7 +74,7 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
 
   const checkFieldType = (dataType, key) => {
     const stringOnlyRegEx = /^[a-zA-Z\s]*$/;
-    const numbersOnlyRegEx = /^[0-9]*$/;
+    const numbersOnlyRegEx = /^[0-9\s]*$/;
     const inputValue = inputField[key];
     if (dataType === "string") {
       stringOnlyRegEx.test(inputValue)

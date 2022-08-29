@@ -19,6 +19,19 @@
   letter-spacing: 2px;
 }
 
+@media (max-width: 360px) {
+  .back-card--container {
+    width: 280px;
+    right: 10px;
+    top: 10px;
+  }
+  
+  .cvc {
+    font-size: 11px;
+    top: 58px;
+  }
+}
+
 @media (min-width: 768px) {
   .back-card--container {
     top: 0;

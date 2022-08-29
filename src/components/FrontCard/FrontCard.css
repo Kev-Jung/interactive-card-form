@@ -48,6 +48,20 @@
   margin: 14px 0;
 }
 
+@media (max-width: 360px) {
+  .front-card--container {
+    width: 280px;
+    left: 10px;
+    bottom: -4px;
+  }
+  .card-logo {
+    width: 40px;
+  }
+  .card-number {
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 768px) {
   .front-card--container {
     top: 93px;
