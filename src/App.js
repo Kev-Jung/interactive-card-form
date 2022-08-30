@@ -16,7 +16,6 @@ import {useState} from 'react'
 function App() {
 
   const [formSubmitted, setFormSubmitted] = useState(false)
-
   const [inputField, setInputField] = useState(initialFormValues);
 
   return (
