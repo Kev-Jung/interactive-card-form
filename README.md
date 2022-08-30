@@ -1,22 +1,10 @@
-# Frontend Mentor - Interactive card details form
+# Interactive Card Details Form Solution
 
-![Design preview for the Interactive card details form coding challenge](./design/desktop-preview.jpg)
+This is my solution to the [Interactive Card Details Form Challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-card-details-form-XpS8cKZDWw).
 
-## Welcome! 👋
+## The Challenge
 
-Thanks for checking out this front-end coding challenge.
-
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
-
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
-
-## The challenge
-
-Your challenge is to build out this interactive card details form and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to: 
+Users should be able to:
 
 - Fill in the form and see the card details update in real-time
 - Receive error messages when the form is submitted if:
@@ -25,81 +13,82 @@ Your users should be able to:
 - View the optimal layout depending on their device's screen size
 - See hover, active, and focus states for interactive elements on the page
 
-Want some support on the challenge? [Join our Slack community](https://www.frontendmentor.io/slack) and ask questions in the **#help** channel.
+## Built With
 
-### Expected behaviour
+- HTML5 markup
+- CSS (flexbox, CSS grid)
+- ES6 Javascript
+- Mobile-first workflow
+- React (hooks, controlled components, conditional rendering)
 
-- Update the details on the card as the user fills in the fields
-- Validate the form fields when the form is submitted
-- If there are no errors, display the completed state
-- Reset the form when the user clicks "Continue" on the completed state
+## Screenshot
 
-**⚠️ IMPORTANT ⚠️: When you create the live version of your project, we recommmend giving it a random name for the URL. This is because with it being a fake credit card form, some browsers will open a warning notice before people can access your project. So it's best to name the project something unrelated to credit cards so that browsers don't show the warning to people viewing your project.**
+### Mobile
 
-## Where to find everything
+![mobile](https://user-images.githubusercontent.com/86936720/187306942-51f5476e-9db4-4fa1-b627-af609f4859b1.png)
+![submit-form](https://user-images.githubusercontent.com/86936720/187338393-a9ab72d8-0549-4f37-ba4c-a747fb6988e0.png)
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
+### Desktop
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
+![desktop](https://user-images.githubusercontent.com/86936720/187307131-cf729493-1ad2-4a9a-9fa1-04f133003ebe.png)
 
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+## My Process
 
-You will find all the required assets in the `/images` folder. The assets are already optimized.
+My solution to this challenge's UI was a mobile-first approach and adding subsequent styling (flexbox & CSS grid) for breakpoints greater than mobile screen sizes. This challenge was built with React's functional components and hooks (useState & useEffect) were used to have the credit card details dynamically change on the card UI based on user input on the form.
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+I used objects as the initial useState argument for the form's inputs and error messages.
 
-## Building your project
+```js
+const [inputField, setInputField] = useState({
+  name: "",
+  cardNumber: "",
+  month: "",
+  year: "",
+  cvc: "",
+});
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+const [error, setError] = useState({
+  name: { error: false, message: "" },
+  cardNumber: { error: false, message: "" },
+  month: { error: false, message: "" },
+  year: { error: false, message: "" },
+  cvc: { error: false, message: "" },
+});
+```
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+The inputField state variable is responsible for updating state any time the user enters information on the form. The state is passed as props to the form to control the input field components.
 
-## Deploying your project
+The error state variable is used to handle the prompts for each input if it was flagged as an error due to user input. In the case of an error, the error's boolean property would toggle and, depending on the error flagged, an appropriate error message would be updated. See below for error validation:
 
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
+![error](https://user-images.githubusercontent.com/86936720/187336709-d69ea829-5372-42c2-833a-51bf107b9517.png)
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+One of the challenges was handling the logic of a successful submission. User errors would result in the UI indicating which fields were incorrect with a text prompt below the input field. A useEffect hook validated every time the error variable's state changed. The state error's boolean value was pushed into an array, called errorArray. Using the .every() method, if the result was "false" then no errors were present upon submission and the screen can render the prompt to end the form session.
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+```js
+useEffect(() => {
+  if (renderCount >= 1) {
+    const errorArray = [];
+    for (let key in error) {
+      errorArray.push(error[key].error);
+    }
+    const isSubmissionClean = errorArray.every(
+      (errorExists) => errorExists === false
+    );
+    isSubmissionClean && setFormSubmitted((state) => !state);
+  } else {
+    setRenderCount((prevCount) => prevCount + 1);
+  }
+}, [error]);
+```
 
-## Create a custom `README.md`
+An issue with this implementation of useEffect hook was that useEffect runs the first time the app is rendered. Since the default value for the error state variable is set to false, the form would automatically be ready to submit when the form's button was clicked, bypassing any validation. Therefore, another state variable called "renderCount" was required to skip the first render. This allowed for validation to occur for every subsequent state change. Every time the form was submitted, it would run a handler function that would validate the length and format of each input field.
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+## What I Learned
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+I was able to execute various React concepts into this project that I had learned from online resources such as:
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+- [Zero To Mastery - Andrei Neagoie](https://zerotomastery.io/courses/learn-react/)
+- [Scrimba - Bob Ziroll](https://scrimba.com/learn/learnreact)
+- [Udemy - Angela Yu](https://www.udemy.com/course/the-complete-web-development-bootcamp/)
 
-## Submitting your solution
-
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
-
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
-
-## Sharing your solution
-
-There are multiple places you can share your solution:
-
-1. Share your solution page in the **#finished-projects** channel of the [Slack community](https://www.frontendmentor.io/slack). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
-
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
+I was able to utilize state hooks with forms to create controlled components for the card form to update the UI dynamically. I got to dive deeper into the flexibility of state to not only be passed around as props, but to conditionally render components and certain CSS styles. Validating credit card information required the use of regex to parse through the user input and so I got to learn a little bit more about using regex as a form of validation and use it in this project.
