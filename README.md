@@ -26,7 +26,6 @@ Users should be able to:
 ### Mobile
 
 ![mobile](https://user-images.githubusercontent.com/86936720/187306942-51f5476e-9db4-4fa1-b627-af609f4859b1.png)
-![submit-form](https://user-images.githubusercontent.com/86936720/187338393-a9ab72d8-0549-4f37-ba4c-a747fb6988e0.png)
 
 ### Desktop
 
@@ -34,7 +33,7 @@ Users should be able to:
 
 ## My Process
 
-My solution to this challenge's UI was a mobile-first approach and adding subsequent styling (flexbox & CSS grid) for breakpoints greater than mobile screen sizes. This challenge was built with React's functional components and hooks (useState & useEffect) were used to have the credit card details dynamically change on the card UI based on user input on the form.
+My solution to this challenge's UI was a mobile-first approach and adding subsequent styling (flexbox & CSS grid) for breakpoints greater than mobile screen sizes. This challenge was built with React functional components and hooks (useState & useEffect) to have the credit card details dynamically change on the card UI based on user input.
 
 I used objects as the initial useState argument for the form's inputs and error messages.
 
@@ -56,9 +55,9 @@ const [error, setError] = useState({
 });
 ```
 
-The inputField state variable is responsible for updating state any time the user enters information on the form. The state is passed as props to the form to control the input field components.
+The "inputField" state variable is responsible for updating state any time the user enters information on the form. The state is passed as props to the form to control the input field components.
 
-The error state variable is used to handle the prompts for each input if it was flagged as an error due to user input. In the case of an error, the error's boolean property would toggle and, depending on the error flagged, an appropriate error message would be updated. See below for error validation:
+The "error" state variable handles the error prompts for each input if it was flagged as an error due to user input. In the case of an error, the error's boolean property would toggle it's previous state value. Depending on the error flagged, an appropriate error message would be updated as a return value from the function that computes the error checking. See below for error validation:
 
 ![error](https://user-images.githubusercontent.com/86936720/187336709-d69ea829-5372-42c2-833a-51bf107b9517.png)
 
@@ -83,7 +82,7 @@ useEffect(() => {
 
 An issue with this implementation of useEffect hook was that useEffect runs the first time the app is rendered. Since the default value for the error state variable is set to false, the form would automatically be ready to submit when the form's button was clicked, bypassing any validation. Therefore, another state variable called "renderCount" was required to skip the first render. This allowed for validation to occur for every subsequent state change. Every time the form was submitted, it would run a handler function that would validate the length and format of each input field.
 
-## What I Learned
+## Helpful Resources 
 
 I was able to execute various React concepts into this project that I had learned from online resources such as:
 
@@ -91,4 +90,4 @@ I was able to execute various React concepts into this project that I had learne
 - [Scrimba - Bob Ziroll](https://scrimba.com/learn/learnreact)
 - [Udemy - Angela Yu](https://www.udemy.com/course/the-complete-web-development-bootcamp/)
 
-I was able to utilize state hooks with forms to create controlled components for the card form to update the UI dynamically. I got to dive deeper into the flexibility of state to not only be passed around as props, but to conditionally render components and certain CSS styles. Validating credit card information required the use of regex to parse through the user input and so I got to learn a little bit more about using regex as a form of validation and use it in this project.
+Key Concepts Implemented: state, props, conditional rendering, controlled components, regular expressions, hooks (useState, useEffect), functional components
