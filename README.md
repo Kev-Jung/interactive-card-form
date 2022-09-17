@@ -2,6 +2,8 @@
 
 This is my solution to the [Interactive Card Details Form Challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-card-details-form-XpS8cKZDWw).
 
+[View Live Solution](https://kev-jung.github.io/interactive-card-form/)
+
 ## The Challenge
 
 Users should be able to:
@@ -82,7 +84,7 @@ useEffect(() => {
 
 An issue with this implementation of useEffect hook was that useEffect runs the first time the app is rendered. Since the default value for the error state variable is set to false, the form would automatically be ready to submit when the form's button was clicked, bypassing any validation. Therefore, another state variable called "renderCount" was required to skip the first render. This allowed for validation to occur for every subsequent state change. Every time the form was submitted, it would run a handler function that would validate the length and format of each input field.
 
-## Helpful Resources 
+## Helpful Resources
 
 I was able to execute various React concepts into this project that I had learned from online resources such as:
 
