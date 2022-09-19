@@ -2,7 +2,6 @@ import './App.css';
 import MobileBackground from './components/MobileBackground/MobileBackground';
 import CardForm from './components/CardForm/CardForm';
 import FormSubmit from './components/FormSubmit/FormSubmit';
-import Footer from './components/Footer/Footer';
 import {useState} from 'react'
 
   const initialFormValues = {
@@ -26,7 +25,6 @@ function App() {
       <FormSubmit setFormSubmitted={setFormSubmitted} setInputField={setInputField} initialFormValues={initialFormValues}/> 
       : 
       <CardForm setFormSubmitted={setFormSubmitted} inputField={inputField} setInputField={setInputField} />}
-      <Footer />
     </div>
   );
 }

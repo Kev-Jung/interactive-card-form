@@ -64,7 +64,6 @@ const CardForm = ({ setFormSubmitted, inputField, setInputField }) => {
       // 2. if field does not meet the required length
       // 3. if the field is not "name" (because name does not need to meet the length requimrent)
     } else if (inputLength !== 0 && key !== "name" && inputLength !== limit) {
-      console.log(key);
       createErrorMessage(key, true, `Req: ${limit} char.`);
       // If no errors, return default no error state
     } else {
